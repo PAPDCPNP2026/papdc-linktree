@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAPDC PNP 2026 - Linktree Galaxy Edition</title>
+
+    <!-- Font Orbitron -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ===== LATAR ===== */
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+        background: radial-gradient(ellipse at bottom, #0a0f1c 0%, #000 100%);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* ===== BINTANG ===== */
+      .star,
+      .static-star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+      }
+
+      .star {
+        width: 2px;
+        height: 2px;
+        animation: moveStar linear infinite;
+        opacity: 0.8;
+      }
+
+      .static-star {
+        width: 2px;
+        height: 2px;
+        opacity: 0.6;
+      }
+
+      @keyframes moveStar {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-1000px);
+        }
+      }
+
+      /* ===== CONTAINER ===== */
+      .container {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(14px);
+        border-radius: 25px;
+        padding: 40px 25px;
+        margin-top: 80px;
+        width: 90%;
+        max-width: 430px;
+        text-align: center;
+        box-shadow: 0 0 30px rgba(0, 150, 255, 0.3);
+        z-index: 2;
+        position: relative;
+      }
+
+      .logo {
+        display: block;
+        margin: 0 auto 15px auto;
+        width: 130px;
+        height: auto;
+        filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+      }
+
+      h1 {
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+        color: #6ecbff;
+        text-shadow: 0 0 10px #6ecbff, 0 0 20px #0077ff;
+      }
+
+      p {
+        color: #dcdcdc;
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+      }
+
+      a {
+        display: block;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        margin: 10px auto;
+        padding: 12px;
+        width: 90%;
+        border-radius: 14px;
+        transition: 0.3s;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+      }
+
+      a:hover {
+        background: rgba(110, 203, 255, 0.2);
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(110, 203, 255, 0.6);
+      }
+
+      footer {
+        color: #aaa;
+        font-size: 12px;
+        margin-top: 25px;
+      }
+
+      /* ===== MASKOT ===== */
+      .maskot {
+        position: absolute;
+        bottom: -20px;
+        right: -70px;
+        width: 230px;
+        animation: floaty 3.5s ease-in-out infinite;
+        z-index: 3;
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+        pointer-events: none;
+      }
+
+      @keyframes floaty {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      .maskot-glow {
+        position: absolute;
+        bottom: -30px;
+        right: -30px;
+        width: 160px;
+        height: 50px;
+        background: radial-gradient(
+          circle at center,
+          rgba(110, 203, 255, 0.4),
+          transparent 70%
+        );
+        filter: blur(25px);
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      /* ===== TOMBOL MUSIK ===== */
+      .music-toggle {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        transition: 0.3s;
+      }
+
+      .music-toggle:hover {
+        background: rgba(110, 203, 255, 0.2);
+        box-shadow: 0 0 15px rgba(110, 203, 255, 0.5);
+        transform: scale(1.05);
+      }
+
+      .music-toggle span {
+        font-size: 22px;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+        .container {
+          margin-top: 60px;
+          padding: 30px 20px;
+        }
+
+        .logo {
+          width: 110px;
+        }
+
+        h1 {
+          font-size: 1.4rem;
+        }
+
+        p {
+          font-size: 0.85rem;
+        }
+
+        a {
+          font-size: 0.9rem;
+          padding: 10px;
+        }
+
+        .maskot {
+          width: 160px;
+          bottom: -10px;
+          right: -40px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .maskot {
+          width: 130px;
+          right: -30px;
+          bottom: -5px;
+        }
+
+        .music-toggle {
+          width: 45px;
+          height: 45px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Bintang bergerak -->
+    <script>
+      const totalStars = 180;
+      for (let i = 0; i < totalStars; i++) {
+        const star = document.createElement("div");
+        star.className = Math.random() > 0.5 ? "star" : "static-star";
+        star.style.left = Math.random() * window.innerWidth + "px";
+        star.style.top = Math.random() * window.innerHeight + "px";
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + "px";
+        star.style.height = size + "px";
+        if (star.className === "star") {
+          star.style.animationDuration = 60 + Math.random() * 80 + "s";
+        }
+        document.body.appendChild(star);
+      }
+    </script>
+
+    <!-- Konten -->
+    <div class="container">
+      <img src="logo-papdc.png" alt="Logo PAPDC" class="logo" />
+      <h1>PAPDC PNP 2026</h1>
+      <p>[Official] Polytechnic Asian Parliamentary Debate Championship</p>
+
+      <a href="#">📝 REGISTRATION</a>
+      <a href="#">📘 GUIDE BOOK PAPDC PNP 2026</a>
+      <a href="#">📜 POSTER PAPDC</a>
+      <a href="#">📸 Instagram UKM-Bahasa PNP</a>
+      <a href="#">📸 Instagram PAPDC PNP 2026</a>
+      <a href="#">💬 Contact Person 1 (ZUKRI)</a>
+      <a href="#">💬 Contact Person 2 (NUREAISHA)</a>
+
+      <footer>© 2026 PAPDC PNP</footer>
+
+      <div class="maskot-glow"></div>
+      <img src="maskot.png" alt="Maskot PAPDC" class="maskot" />
+    </div>
+
+    <!-- Musik -->
+    <audio id="bg-music" loop autoplay muted playsinline>
+      <source src="Lagu.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Tombol Musik -->
+    <div class="music-toggle" id="musicBtn" title="Toggle Music">
+      <span>🔇</span>
+    </div>
+
+    <script>
+      const music = document.getElementById("bg-music");
+      const btn = document.getElementById("musicBtn");
+      let isPlaying = true;
+      let hasStarted = false;
+
+      function startMusic() {
+        if (!hasStarted) {
+          music.muted = false;
+          music.play().catch(() => {});
+          btn.innerHTML = "<span>🔊</span>";
+          hasStarted = true;
+          window.removeEventListener("touchstart", startMusic);
+          window.removeEventListener("click", startMusic);
+          window.removeEventListener("scroll", startMusic);
+        }
+      }
+
+      window.addEventListener("touchstart", startMusic);
+      window.addEventListener("click", startMusic);
+      window.addEventListener("scroll", startMusic);
+
+      btn.addEventListener("click", () => {
+        if (isPlaying) {
+          music.pause();
+          btn.innerHTML = "<span>🔇</span>";
+        } else {
+          music.muted = false;
+          music.play();
+          btn.innerHTML = "<span>🔊</span>";
+        }
+        isPlaying = !isPlaying;
+      });
+    </script>
+  </body>
+</html>
