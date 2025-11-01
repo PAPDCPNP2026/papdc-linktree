@@ -33,6 +33,8 @@
         position: absolute;
         background: white;
         border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
       }
 
       .star {
@@ -58,18 +60,29 @@
       }
 
       /* ===== CONTAINER ===== */
+      .container-wrapper {
+        position: relative;
+        z-index: 2;
+        margin-top: 80px;
+      }
+
       .container {
         background: rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(14px);
         border-radius: 25px;
         padding: 40px 25px;
-        margin-top: 80px;
         width: 90%;
         max-width: 430px;
         text-align: center;
         box-shadow: 0 0 30px rgba(0, 150, 255, 0.3);
-        z-index: 2;
         position: relative;
+        z-index: 2;
+        overflow: hidden; /* biar bintang gak keluar */
+      }
+
+      .container .star,
+      .container .static-star {
+        z-index: 1;
       }
 
       .logo {
@@ -78,6 +91,8 @@
         width: 130px;
         height: auto;
         filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+        position: relative;
+        z-index: 2;
       }
 
       h1 {
@@ -88,12 +103,16 @@
         margin-bottom: 8px;
         color: #6ecbff;
         text-shadow: 0 0 10px #6ecbff, 0 0 20px #0077ff;
+        position: relative;
+        z-index: 2;
       }
 
       p {
         color: #dcdcdc;
         font-size: 0.9rem;
         margin-bottom: 25px;
+        position: relative;
+        z-index: 2;
       }
 
       a {
@@ -110,6 +129,8 @@
         transition: 0.3s;
         backdrop-filter: blur(10px);
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+        position: relative;
+        z-index: 2;
       }
 
       a:hover {
@@ -122,16 +143,18 @@
         color: #aaa;
         font-size: 12px;
         margin-top: 25px;
+        position: relative;
+        z-index: 2;
       }
 
       /* ===== MASKOT ===== */
       .maskot {
         position: absolute;
-        bottom: -20px;
-        right: -70px;
+        bottom: -30px;
+        right: -100px;
         width: 230px;
         animation: floaty 3.5s ease-in-out infinite;
-        z-index: 3;
+        z-index: 5;
         filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
         pointer-events: none;
       }
@@ -148,7 +171,7 @@
 
       .maskot-glow {
         position: absolute;
-        bottom: -30px;
+        bottom: -20px;
         right: -30px;
         width: 160px;
         height: 50px;
@@ -158,37 +181,56 @@
           transparent 70%
         );
         filter: blur(25px);
-        z-index: 2;
+        z-index: 4;
         pointer-events: none;
       }
 
-      /* ===== TOMBOL MUSIK ===== */
-      .music-toggle {
+      /* ===== POPUP MUSIK ===== */
+      .music-popup {
         position: fixed;
-        bottom: 20px;
-        left: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 999;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .music-box {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 25px 30px;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(110, 203, 255, 0.4);
+      }
+
+      .music-box h2 {
+        margin-bottom: 15px;
+        color: #6ecbff;
+        font-family: "Orbitron", sans-serif;
+      }
+
+      .music-btns button {
+        background: rgba(110, 203, 255, 0.2);
+        border: 1px solid rgba(110, 203, 255, 0.5);
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 8px;
+        padding: 10px 20px;
+        border-radius: 10px;
         cursor: pointer;
-        z-index: 10;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         transition: 0.3s;
       }
 
-      .music-toggle:hover {
-        background: rgba(110, 203, 255, 0.2);
-        box-shadow: 0 0 15px rgba(110, 203, 255, 0.5);
-        transform: scale(1.05);
-      }
-
-      .music-toggle span {
-        font-size: 22px;
+      .music-btns button:hover {
+        background: rgba(110, 203, 255, 0.4);
       }
 
       /* ===== RESPONSIVE ===== */
@@ -228,96 +270,98 @@
           right: -30px;
           bottom: -5px;
         }
-
-        .music-toggle {
-          width: 45px;
-          height: 45px;
-        }
       }
     </style>
   </head>
 
   <body>
-    <!-- Bintang bergerak -->
+    <!-- Bintang -->
     <script>
-      const totalStars = 180;
-      for (let i = 0; i < totalStars; i++) {
-        const star = document.createElement("div");
-        star.className = Math.random() > 0.5 ? "star" : "static-star";
-        star.style.left = Math.random() * window.innerWidth + "px";
-        star.style.top = Math.random() * window.innerHeight + "px";
-        const size = Math.random() * 2 + 1;
-        star.style.width = size + "px";
-        star.style.height = size + "px";
-        if (star.className === "star") {
-          star.style.animationDuration = 60 + Math.random() * 80 + "s";
+      const totalStars = 250;
+      function addStars(target) {
+        for (let i = 0; i < totalStars / 2; i++) {
+          const star = document.createElement("div");
+          star.className = Math.random() > 0.5 ? "star" : "static-star";
+          star.style.left = Math.random() * target.offsetWidth + "px";
+          star.style.top = Math.random() * target.offsetHeight + "px";
+          const size = Math.random() * 2 + 1;
+          star.style.width = size + "px";
+          star.style.height = size + "px";
+          if (star.className === "star") {
+            star.style.animationDuration = 60 + Math.random() * 80 + "s";
+          }
+          target.appendChild(star);
         }
-        document.body.appendChild(star);
       }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        addStars(document.body);
+        const container = document.querySelector(".container");
+        addStars(container);
+      });
     </script>
 
     <!-- Konten -->
-    <div class="container">
-      <img src="logo-papdc.png" alt="Logo PAPDC" class="logo" />
-      <h1>PAPDC PNP 2026</h1>
-      <p>[Official] Polytechnic Asian Parliamentary Debate Championship</p>
+    <div class="container-wrapper">
+      <div class="container">
+        <img src="logo-papdc.png" alt="Logo PAPDC" class="logo" />
+        <h1>PAPDC PNP 2026</h1>
+        <p>[Official] Polytechnic Asian Parliamentary Debate Championship</p>
 
-      <a href="#">📝 REGISTRATION</a>
-      <a href="#">📘 GUIDE BOOK PAPDC PNP 2026</a>
-      <a href="#">📜 POSTER PAPDC</a>
-      <a href="#">📸 Instagram UKM-Bahasa PNP</a>
-      <a href="#">📸 Instagram PAPDC PNP 2026</a>
-      <a href="#">💬 Contact Person 1 (ZUKRI)</a>
-      <a href="#">💬 Contact Person 2 (NUREAISHA)</a>
+        <a href="#">📝 REGISTRATION</a>
+        <a href="#">📘 GUIDE BOOK PAPDC PNP 2026</a>
+        <a href="#">📜 POSTER PAPDC</a>
+        <a
+          href="https://www.instagram.com/ukmbahasapnp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+          >📸 INSTAGRAM UKM-BAHASA PNP</a
+        >
+        <a
+          href="https://www.instagram.com/papdcpnp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+          >📸 INSTAGRAM PAPDC PNP 2026</a
+        >
+        <a href="#">💬 CONTACT PERSON 1 (ANANDHITA)</a>
+        <a
+          href="https://api.whatsapp.com/send/?phone=6285805231267&text&type=phone_number&app_absent=0https://api.whatsapp.com/send/?phone=https://api.whatsapp.com/send/?phone=6285805231267&text&type=phone_number&app_absent=0&text&type=phone_number&app_absent=0"
+          >💬 CONTACT PERSON 2 (DAFFA)</a
+        >
 
-      <footer>© 2026 PAPDC PNP</footer>
+        <footer>© 2026 PAPDC PNP</footer>
+      </div>
 
+      <!-- Maskot di luar container -->
       <div class="maskot-glow"></div>
       <img src="maskot.png" alt="Maskot PAPDC" class="maskot" />
     </div>
 
     <!-- Musik -->
-    <audio id="bg-music" loop autoplay muted playsinline>
+    <audio id="bg-music" loop>
       <source src="Lagu.mp3" type="audio/mpeg" />
     </audio>
 
-    <!-- Tombol Musik -->
-    <div class="music-toggle" id="musicBtn" title="Toggle Music">
-      <span>🔇</span>
+    <!-- Popup Musik -->
+    <div class="music-popup" id="musicPopup">
+      <div class="music-box">
+        <h2>🎵 Putar Musik Latar?</h2>
+        <div class="music-btns">
+          <button id="musicYes">Ya</button>
+          <button id="musicNo">Tidak</button>
+        </div>
+      </div>
     </div>
 
     <script>
       const music = document.getElementById("bg-music");
-      const btn = document.getElementById("musicBtn");
-      let isPlaying = true;
-      let hasStarted = false;
+      const popup = document.getElementById("musicPopup");
+      const yesBtn = document.getElementById("musicYes");
+      const noBtn = document.getElementById("musicNo");
 
-      function startMusic() {
-        if (!hasStarted) {
-          music.muted = false;
-          music.play().catch(() => {});
-          btn.innerHTML = "<span>🔊</span>";
-          hasStarted = true;
-          window.removeEventListener("touchstart", startMusic);
-          window.removeEventListener("click", startMusic);
-          window.removeEventListener("scroll", startMusic);
-        }
-      }
+      yesBtn.addEventListener("click", () => {
+        music.play().catch(() => {});
+        popup.style.display = "none";
+      });
 
-      window.addEventListener("touchstart", startMusic);
-      window.addEventListener("click", startMusic);
-      window.addEventListener("scroll", startMusic);
-
-      btn.addEventListener("click", () => {
-        if (isPlaying) {
-          music.pause();
-          btn.innerHTML = "<span>🔇</span>";
-        } else {
-          music.muted = false;
-          music.play();
-          btn.innerHTML = "<span>🔊</span>";
-        }
-        isPlaying = !isPlaying;
+      noBtn.addEventListener("click", () => {
+        popup.style.display = "none";
       });
     </script>
   </body>
