@@ -2,7 +2,10 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>PAPDC PNP 2026 - Linktree Galaxy Edition</title>
 
     <!-- Font Orbitron -->
@@ -10,11 +13,31 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Font Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
-      /* ===== LATAR ===== */
+      /* ===== RESET & PREVENT SCROLL/ZOOM ===== */
+      html,
       body {
         margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        touch-action: manipulation;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* ===== LATAR ===== */
+      body {
         font-family: "Poppins", sans-serif;
         min-height: 100vh;
         background: radial-gradient(ellipse at bottom, #0a0f1c 0%, #000 100%);
@@ -22,9 +45,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
-        overflow-x: hidden;
+        justify-content: center;
         position: relative;
+        overflow: hidden;
       }
 
       /* ===== BINTANG ===== */
@@ -63,14 +86,18 @@
       .container-wrapper {
         position: relative;
         z-index: 2;
-        margin-top: 80px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
       }
 
       .container {
         background: rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(14px);
         border-radius: 25px;
-        padding: 40px 25px;
+        padding: 30px 25px;
         width: 90%;
         max-width: 430px;
         text-align: center;
@@ -78,6 +105,7 @@
         position: relative;
         z-index: 2;
         overflow: hidden;
+        margin: 20px 0;
       }
 
       .container .star,
@@ -148,31 +176,41 @@
       }
 
       /* ===== MASKOT ===== */
-      .maskot {
+      .maskot-container {
         position: absolute;
-        bottom: -30px;
-        right: -100px;
+        bottom: 0;
+        right: 0;
         width: 230px;
-        animation: floaty 3.5s ease-in-out infinite;
+        height: 230px;
         z-index: 5;
-        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
         pointer-events: none;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+
+      .maskot {
+        width: 100%;
+        height: auto;
+        animation: floaty 3.5s ease-in-out infinite;
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+        transform: translate(20%, 20%);
       }
 
       @keyframes floaty {
         0%,
         100% {
-          transform: translateY(0);
+          transform: translate(20%, 20%);
         }
         50% {
-          transform: translateY(-8px);
+          transform: translate(20%, 15%);
         }
       }
 
       .maskot-glow {
         position: absolute;
-        bottom: -20px;
-        right: -30px;
+        bottom: 0;
+        right: 0;
         width: 160px;
         height: 50px;
         background: radial-gradient(
@@ -183,6 +221,7 @@
         filter: blur(25px);
         z-index: 4;
         pointer-events: none;
+        transform: translate(30%, 30%);
       }
 
       /* ===== POPUP MUSIK (centered) - PERBAIKAN ===== */
@@ -245,24 +284,37 @@
       }
 
       /* ===== RESPONSIVE ===== */
+      @media (max-width: 1024px) {
+        .maskot-container {
+          width: 200px;
+          height: 200px;
+        }
+      }
+
       @media (max-width: 768px) {
         .container {
-          margin-top: 60px;
-          padding: 30px 20px;
+          padding: 25px 20px;
+          margin: 15px 0;
         }
 
-        .maskot {
+        .maskot-container {
           width: 160px;
-          bottom: -10px;
-          right: -40px;
+          height: 160px;
+        }
+
+        .maskot-glow {
+          width: 120px;
         }
       }
 
       @media (max-width: 480px) {
-        .maskot {
+        .maskot-container {
           width: 130px;
-          right: -30px;
-          bottom: -5px;
+          height: 130px;
+        }
+
+        .maskot-glow {
+          width: 100px;
         }
 
         .music-box {
@@ -277,6 +329,50 @@
         .music-btns button {
           padding: 8px 15px;
           font-size: 0.9rem;
+        }
+
+        .container {
+          padding: 20px 15px;
+        }
+
+        h1 {
+          font-size: 1.4rem;
+        }
+      }
+
+      @media (max-height: 700px) {
+        .container {
+          padding: 20px 15px;
+          margin: 10px 0;
+        }
+
+        .logo {
+          width: 110px;
+          margin-bottom: 10px;
+        }
+
+        h1 {
+          font-size: 1.4rem;
+          margin-bottom: 5px;
+        }
+
+        p {
+          margin-bottom: 15px;
+          font-size: 0.85rem;
+        }
+
+        a {
+          margin: 8px auto;
+          padding: 10px;
+        }
+
+        footer {
+          margin-top: 15px;
+        }
+
+        .maskot-container {
+          width: 120px;
+          height: 120px;
         }
       }
     </style>
@@ -306,6 +402,25 @@
         addStars(document.body);
         const container = document.querySelector(".container");
         addStars(container);
+
+        // Prevent zoom on double tap (for iOS)
+        let lastTouchEnd = 0;
+        document.addEventListener(
+          "touchend",
+          function (event) {
+            const now = new Date().getTime();
+            if (now - lastTouchEnd <= 300) {
+              event.preventDefault();
+            }
+            lastTouchEnd = now;
+          },
+          false
+        );
+
+        // Prevent context menu
+        document.addEventListener("contextmenu", function (e) {
+          e.preventDefault();
+        });
       });
     </script>
 
@@ -335,7 +450,9 @@
 
       <!-- Maskot -->
       <div class="maskot-glow"></div>
-      <img src="maskot.png" alt="Maskot PAPDC" class="maskot" />
+      <div class="maskot-container">
+        <img src="maskot.png" alt="Maskot PAPDC" class="maskot" />
+      </div>
     </div>
 
     <!-- Musik -->
@@ -367,6 +484,25 @@
 
       noBtn.addEventListener("click", () => {
         popup.style.display = "none";
+      });
+
+      let lastTouchEnd = 0;
+      // Prevent zoom on double tap
+      document.addEventListener(
+        "touchend",
+        function (event) {
+          const now = new Date().getTime();
+          if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+          }
+          lastTouchEnd = now;
+        },
+        false
+      );
+
+      // Prevent context menu
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
       });
     </script>
   </body>
