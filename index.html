@@ -17,9 +17,23 @@
     />
 
     <style>
+      /* ===== RESET & FIX SCROLL ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch; /* Smooth scroll untuk iOS */
+      }
+
       /* ===== LATAR ===== */
       body {
-        margin: 0;
         font-family: "Poppins", sans-serif;
         min-height: 100vh;
         background: radial-gradient(ellipse at bottom, #0a0f1c 0%, #000 100%);
@@ -28,8 +42,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        overflow-x: hidden; /* Mencegah scroll horizontal */
         position: relative;
+        overflow-y: auto; /* Pastikan body bisa discroll */
       }
 
       /* ===== BINTANG ===== */
@@ -68,16 +82,17 @@
       .container-wrapper {
         position: relative;
         z-index: 2;
-        margin-top: 40px; /* DIKURANGI dari 80px ke 40px */
+        margin-top: 40px;
         width: 100%;
-        max-width: 430px; /* Membatasi lebar maksimum wrapper */
+        max-width: 430px;
+        margin-bottom: 40px; /* Tambahkan margin bawah untuk ruang scroll */
       }
 
       .container {
         background: rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(14px);
         border-radius: 25px;
-        padding: 30px 25px; /* DIKURANGI dari 40px 25px ke 30px 25px */
+        padding: 30px 25px;
         width: 90%;
         max-width: 430px;
         text-align: center;
@@ -85,8 +100,7 @@
         position: relative;
         z-index: 2;
         overflow: hidden;
-        margin: 0 auto; /* Pusatkan container */
-        box-sizing: border-box;
+        margin: 0 auto;
       }
 
       .container .star,
@@ -119,7 +133,7 @@
       p {
         color: #dcdcdc;
         font-size: 0.9rem;
-        margin-bottom: 20px; /* DIKURANGI dari 25px ke 20px */
+        margin-bottom: 20px;
         position: relative;
         z-index: 2;
       }
@@ -140,7 +154,6 @@
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
         position: relative;
         z-index: 2;
-        box-sizing: border-box;
       }
 
       a:hover {
@@ -152,7 +165,7 @@
       footer {
         color: #aaa;
         font-size: 12px;
-        margin-top: 20px; /* DIKURANGI dari 25px ke 20px */
+        margin-top: 20px;
         position: relative;
         z-index: 2;
       }
@@ -167,6 +180,10 @@
         z-index: 5;
         filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
         pointer-events: none;
+        /* Pastikan maskot tidak mengganggu scroll */
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
       }
 
       @keyframes floaty {
@@ -195,7 +212,7 @@
         pointer-events: none;
       }
 
-      /* ===== POPUP MUSIK (centered) - PERBAIKAN ===== */
+      /* ===== POPUP MUSIK ===== */
       .music-popup {
         position: fixed;
         top: 0;
@@ -209,7 +226,6 @@
         z-index: 9999;
         text-align: center;
         padding: 20px;
-        box-sizing: border-box;
       }
 
       .music-box {
@@ -220,7 +236,6 @@
         box-shadow: 0 0 20px rgba(110, 203, 255, 0.4);
         max-width: 90%;
         width: 300px;
-        box-sizing: border-box;
       }
 
       .music-box h2 {
@@ -257,8 +272,8 @@
       /* ===== RESPONSIVE ===== */
       @media (max-width: 768px) {
         .container {
-          margin-top: 30px; /* DIKURANGI dari 60px ke 30px */
-          padding: 25px 20px; /* DIKURANGI dari 30px 20px ke 25px 20px */
+          margin-top: 30px;
+          padding: 25px 20px;
         }
 
         .maskot {
@@ -266,7 +281,7 @@
           bottom: -10px;
           right: -40px;
         }
-        
+
         .maskot-glow {
           width: 120px;
           right: -20px;
@@ -274,6 +289,11 @@
       }
 
       @media (max-width: 480px) {
+        .container-wrapper {
+          margin-top: 30px;
+          margin-bottom: 30px;
+        }
+
         .maskot {
           width: 130px;
           right: -30px;
@@ -300,14 +320,11 @@
         }
       }
 
-      /* Perbaikan untuk mencegah overflow horizontal */
-      html, body {
-        max-width: 100%;
-        overflow-x: hidden;
-      }
-      
-      * {
-        box-sizing: border-box;
+      /* Perbaikan khusus untuk scroll di iOS */
+      @supports (-webkit-touch-callout: none) {
+        body {
+          -webkit-overflow-scrolling: touch;
+        }
       }
     </style>
   </head>
@@ -398,6 +415,15 @@
       noBtn.addEventListener("click", () => {
         popup.style.display = "none";
       });
+
+      // Perbaikan tambahan untuk mencegah masalah scroll di mobile
+      document.addEventListener(
+        "touchmove",
+        function (e) {
+          // Biarkan scroll normal
+        },
+        { passive: true }
+      );
     </script>
   </body>
 </html>
