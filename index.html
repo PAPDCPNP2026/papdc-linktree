@@ -13,7 +13,6 @@
 
     <style>
       /* ===== LATAR ===== */
-      html,
       body {
         margin: 0;
         font-family: "Poppins", sans-serif;
@@ -24,8 +23,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        overflow-x: hidden; /* fix berat ke kanan */
-        max-width: 100vw; /* pastikan tidak melebar */
+        overflow-x: hidden;
         position: relative;
       }
 
@@ -65,7 +63,7 @@
       .container-wrapper {
         position: relative;
         z-index: 2;
-        margin-top: 60px;
+        margin-top: 80px;
       }
 
       .container {
@@ -80,7 +78,6 @@
         position: relative;
         z-index: 2;
         overflow: hidden;
-        margin: auto;
       }
 
       .container .star,
@@ -153,14 +150,13 @@
       /* ===== MASKOT ===== */
       .maskot {
         position: absolute;
-        bottom: -15px; /* naik sedikit dari sebelumnya */
-        right: -60px; /* tidak terlalu keluar */
-        width: 200px;
+        bottom: -30px;
+        right: -100px;
+        width: 230px;
         animation: floaty 3.5s ease-in-out infinite;
         z-index: 5;
         filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
         pointer-events: none;
-        max-width: 100%;
       }
 
       @keyframes floaty {
@@ -175,10 +171,10 @@
 
       .maskot-glow {
         position: absolute;
-        bottom: -5px;
-        right: -10px;
-        width: 140px;
-        height: 40px;
+        bottom: -20px;
+        right: -30px;
+        width: 160px;
+        height: 50px;
         background: radial-gradient(
           circle at center,
           rgba(110, 203, 255, 0.4),
@@ -187,32 +183,30 @@
         filter: blur(25px);
         z-index: 4;
         pointer-events: none;
-        max-width: 100%;
       }
 
-      /* ===== POPUP MUSIK ===== */
+      /* ===== POPUP MUSIK (centered) ===== */
       .music-popup {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
         background: rgba(0, 0, 0, 0.7);
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 999;
-        flex-direction: column;
+        z-index: 9999;
         text-align: center;
         padding: 20px;
       }
 
       .music-box {
         background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(12px);
         padding: 25px 30px;
         border-radius: 20px;
         box-shadow: 0 0 20px rgba(110, 203, 255, 0.4);
+        max-width: 90%;
       }
 
       .music-box h2 {
@@ -240,43 +234,23 @@
 
       /* ===== RESPONSIVE ===== */
       @media (max-width: 768px) {
-        .container-wrapper {
-          margin-top: 40px; /* naik lebih ke atas di HP */
-        }
-
         .container {
+          margin-top: 60px;
           padding: 30px 20px;
         }
 
-        .logo {
-          width: 110px;
-        }
-
-        h1 {
-          font-size: 1.4rem;
-        }
-
-        p {
-          font-size: 0.85rem;
-        }
-
-        a {
-          font-size: 0.9rem;
-          padding: 10px;
-        }
-
         .maskot {
-          width: 140px;
-          bottom: 0;
-          right: -30px;
+          width: 160px;
+          bottom: -10px;
+          right: -40px;
         }
       }
 
       @media (max-width: 480px) {
         .maskot {
-          width: 120px;
-          right: -20px;
-          bottom: 0;
+          width: 130px;
+          right: -30px;
+          bottom: -5px;
         }
       }
     </style>
@@ -319,17 +293,14 @@
         <a href="#">📝 REGISTRATION</a>
         <a href="#">📘 GUIDE BOOK PAPDC PNP 2026</a>
         <a href="#">📜 POSTER PAPDC</a>
-        <a
-          href="https://www.instagram.com/ukmbahasapnp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        <a href="https://www.instagram.com/ukmbahasapnp"
           >📸 INSTAGRAM UKM-BAHASA PNP</a
         >
-        <a
-          href="https://www.instagram.com/papdcpnp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        <a href="https://www.instagram.com/papdcpnp"
           >📸 INSTAGRAM PAPDC PNP 2026</a
         >
         <a href="#">💬 CONTACT PERSON 1 (ANANDHITA)</a>
-        <a
-          href="https://api.whatsapp.com/send/?phone=6285805231267&text&type=phone_number&app_absent=0"
+        <a href="https://api.whatsapp.com/send/?phone=6285805231267"
           >💬 CONTACT PERSON 2 (DAFFA)</a
         >
 
